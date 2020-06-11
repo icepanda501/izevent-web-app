@@ -1,0 +1,20 @@
+.party-card-body{
+    font-size: 11px;
+}
+
+.party-card-footer{
+    display: flex;
+}
+
+.party-card-joiner-number{
+    font-size: 8px;
+}
+
+.party-card-join-button{
+    font-size: 9px;
+    width: 100px;
+}
+
+.party-card-wrapper{ 
+    padding: 10px;
+}
