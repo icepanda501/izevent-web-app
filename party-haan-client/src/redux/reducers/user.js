@@ -28,6 +28,7 @@ const customReducer = {
     return {
       ...state,
       isLoading: false,
+      error: null,
       data,
     };
   },

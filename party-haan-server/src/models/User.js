@@ -14,6 +14,13 @@ class User {
         const result = await this.databaseEngine.getAll(this.collectionName)
         return result
     }
+    async update (id, data) {
+        if(typeof id !== 'string'){
+            throw Error("id is missing or type is wrong")
+        }
+        const result = await this.databaseEngine.update(this.collectionName, id, data)
+        return result
+    }
     async create({ username, email, password, needPromotion }) {
         if(typeof username !== 'string'){
             throw Error("username is missing or type is wrong")
@@ -53,6 +60,9 @@ class User {
             throw Error("password is  missing or type is wrong")
         }
         const user = await this.databaseEngine.getOne(this.collectionName, { username })
+        if(!user){
+            throw Error("user not found")
+        }
         const isMatch = await comparePassword(password, user.password)
         if(!isMatch){
             throw new Error("login fail password is not match")
@@ -68,4 +78,4 @@ class User {
 
 
 
-export default new User({ databaseEngine, collectionName : 'userList' })
+export default User

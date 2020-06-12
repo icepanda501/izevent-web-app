@@ -1,7 +1,9 @@
-import React from 'react';
-import { Input, Form, Card } from 'antd';
+import React, { useState } from 'react';
+import { Input, Form, Card, InputNumber } from 'antd';
 
 import CustomButton from '../CustomButton';
+
+import './CreatePartyCard.css';
 
 const CreatePartyCard = ({ onFinish, onFinishFailed }) => (
   <Card>
@@ -24,7 +26,7 @@ const CreatePartyCard = ({ onFinish, onFinishFailed }) => (
         name="maxJoiner"
         rules={[{ required: true, message: 'Please input your max joiner!' }]}
       >
-        <Input type="number" />
+        <InputNumber className="create-party-input-number" min={1} max={30} defaultValue={1} />
       </Form.Item>
       <Form.Item>
         <div className="submit-button-layout">

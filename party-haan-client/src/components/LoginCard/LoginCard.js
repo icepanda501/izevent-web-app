@@ -1,18 +1,17 @@
 import React from 'react';
-import { Card, Form, Input, Checkbox } from 'antd';
+import { Card, Form, Input, Checkbox, Alert } from 'antd';
 
 import CustomButton from '../CustomButton';
 
 import './LoginCard.css';
 
-const LoginCard = ({ onLogin, onLoginFailed }) => (
+const LoginCard = ({ onLogin, error }) => (
   <Card>
     <Form
       layout="vertical"
       name="loginForm"
       initialValues={{ remember: true }}
       onFinish={onLogin}
-      onFinishFailed={onLoginFailed}
     >
       <Form.Item
         label="Username"
@@ -33,6 +32,8 @@ const LoginCard = ({ onLogin, onLoginFailed }) => (
       <Form.Item name="remember" valuePropName="checked">
         <Checkbox>Remember me</Checkbox>
       </Form.Item>
+
+      { error && <Alert className="login-alert" message={error} type="error" /> }
 
       <Form.Item>
         <div className="submit-button-layout">

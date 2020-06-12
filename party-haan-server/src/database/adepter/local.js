@@ -10,7 +10,6 @@ export default class Local {
     getAll(collectionName) {
         const logSource = "local.getAll"
         return new Promise((resolve, reject)=> {
-            console.log('getting all data ', logSource, { collectionName, data: this.data })
             const collection = this.data[collectionName]
             if (!collection) {
                 reject(new Error("collection not found"))

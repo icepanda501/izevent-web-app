@@ -6,7 +6,7 @@ import CreatePartyPage from './pages/CreatePartyPage';
 import LoginPage from './pages/LoginPage';
 import PartyListPage from './pages/PartyListPage';
 import store from './redux/store';
-import logo from './logo.svg';
+
 import './App.css';
 
 function App() {

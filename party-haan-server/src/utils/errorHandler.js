@@ -2,7 +2,6 @@ const errorHandler = (routeFunction) => async (req,res,next) => {
     try{
         await routeFunction(req,res,next)
     } catch(error) {
-        console.log(error)
         const statusCode = error.statusCode || 500
         return res.status(statusCode).send({
             message: error.message

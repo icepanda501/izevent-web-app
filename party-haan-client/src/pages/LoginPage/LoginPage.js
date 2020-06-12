@@ -15,9 +15,6 @@ const LoginPage = () => {
   if (user) {
     navigate('/');
   }
-  if (error) {
-    alert(error);
-  }
   const navigateToCreateUser = () => {
     navigate('/createUser');
   };
@@ -33,7 +30,7 @@ const LoginPage = () => {
       </Row>
       <Row justify="center">
         <Col span={20}>
-          <LoginCard onLogin={onLogin} />
+          <LoginCard onLogin={onLogin} error={error} />
         </Col>
       </Row>
       <Row justify="center">

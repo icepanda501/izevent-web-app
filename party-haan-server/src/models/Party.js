@@ -1,9 +1,4 @@
-
-import { Firestore } from '../database'
-import firebase from '../lib/firebase'
 import uniuqeArray from '../utils/uniqueArray'
-
-const databaseEngine = new Firestore({ firebase })
 
 const defaultImage = 'https://firebasestorage.googleapis.com/v0/b/izevent.appspot.com/o/images%2Fpexels-photo-1190298.jpeg?alt=media'
 
@@ -90,4 +85,4 @@ class Party {
 
 
 
-export default new Party({ databaseEngine, collectionName : 'partyList' })
+export default Party

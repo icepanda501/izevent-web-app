@@ -3,15 +3,19 @@ import uuid from 'uuid/v4'
 
 export default class Firebase {
     constructor({ firebase }) {
+        this.firebase = firebase
         this.db = firebase.firestore()
+    }
+
+    getTimestamp() {
+        return this.firebase.firestore.Timestamp.fromDate(new Date())
     }
 
     buildQuery(collectionName, query) {
         let queryBuilder = this.db.collection(collectionName)
         Object.keys(query).forEach(key=> {
             const value = query[key]
-            queryBuilder.where(key, '==', value)
-            console.log(key, '==', value)
+            queryBuilder = queryBuilder.where(key, '==', value)
         })
         return queryBuilder
     }
@@ -49,13 +53,14 @@ export default class Firebase {
         return null
     }
     async create(collectionName, data) {
+        data.createdDate = this.getTimestamp()
         const docRef = await this.db.collection(collectionName).add(data)
         const doc = await docRef.get()
         return { ...doc.data(), id: doc.id}
     }
     async update(collectionName, id, data) {
             const oldData = await this.get(collectionName, id)
-            const newData = { ...oldData, ...data}
+            const newData = { ...oldData, ...data, updatedDate: this.getTimestamp() }
             await this.db.collection(collectionName).doc(id).update(newData)
             return newData
     }

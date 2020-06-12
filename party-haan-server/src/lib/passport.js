@@ -4,8 +4,6 @@ import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 
 const { SECRET_KEY } = process.env;
 
-console.log('SECRET_KEY : ', SECRET_KEY)
-
 const encode = (payload) => Jwt.sign(payload, SECRET_KEY, { expiresIn: '7d' });
 
 const decode = (payload) => Jwt.verify(payload, SECRET_KEY);

@@ -1,11 +1,16 @@
 import express from 'express'
 import PartyModel from '../../models/Party'
+import { Firestore } from '../../database'
+import firebase from '../../lib/firebase'
 import errorHandler from '../../utils/errorHandler'
+import { PARTY_COLLECTION } from '../../enums/collectionNames'
 
+const databaseEngine = new Firestore({ firebase })
+const partyModel = new PartyModel({ databaseEngine, collectionName : PARTY_COLLECTION })
 const router = express.Router();
 
 router.get('/list', errorHandler(async (req, res) => {
-  const partyList = await PartyModel.getAll()
+  const partyList = await partyModel.getAll()
   return res.send({
     data: partyList
   })
@@ -15,7 +20,7 @@ router.get('/list', errorHandler(async (req, res) => {
 router.put('/join/:partyId', errorHandler(async (req, res) => {
   const { partyId } = req.params
   const { id: userId } = req.user
-  const party = await PartyModel.join({ userId, partyId })
+  const party = await partyModel.join({ userId, partyId })
   return res.send({
     data: party
   })
@@ -24,7 +29,7 @@ router.put('/join/:partyId', errorHandler(async (req, res) => {
 router.put('/leave/:partyId', errorHandler(async (req, res) => {
   const { partyId } = req.params
   const { id: userId } = req.user
-  const party = await PartyModel.leave({ userId, partyId })
+  const party = await partyModel.leave({ userId, partyId })
   return res.send({
     data: party
   })
@@ -32,7 +37,7 @@ router.put('/leave/:partyId', errorHandler(async (req, res) => {
 
 router.get('/:partyId', errorHandler(async (req, res) => {
   const { partyId } = req.params
-  const party = await PartyModel.get(partyId)
+  const party = await partyModel.get(partyId)
   return res.send({
     data: party
   })
@@ -40,7 +45,7 @@ router.get('/:partyId', errorHandler(async (req, res) => {
 
 router.post('/', errorHandler(async (req, res) => {
   const { title, detail, image, maxJoiner, owner, joinerList } = req.body
-  const party = await PartyModel.create({ title, detail, image, maxJoiner, owner, joinerList})
+  const party = await partyModel.create({ title, detail, image, maxJoiner, owner, joinerList})
   return res.send({
     data: party
   })
@@ -48,7 +53,7 @@ router.post('/', errorHandler(async (req, res) => {
 
 router.delete('/:partyId', errorHandler(async (req, res) => {
   const { partyId } = req.params
-  const party = await PartyModel.delete(partyId)
+  const party = await partyModel.delete(partyId)
   return res.send({
     data: party
   })

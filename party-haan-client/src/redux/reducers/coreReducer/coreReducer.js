@@ -10,6 +10,7 @@ const setData = (state, payload) => {
   return {
     ...state,
     isLoading: false,
+    error: null,
     data,
   };
 };
