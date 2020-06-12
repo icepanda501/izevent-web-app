@@ -15,7 +15,7 @@ router.get('/list', errorHandler(async (req, res) => {
 router.post('/join/:partyId', errorHandler(async (req, res) => {
   const { partyId } = req.params
   const { id: userId } = req.user
-  const partyList = await PartyModel.join(id)
+  const partyList = await PartyModel.join({ userId, partyId })
   return res.send({
     data: partyList
   })
