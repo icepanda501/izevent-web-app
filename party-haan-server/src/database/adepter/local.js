@@ -17,7 +17,7 @@ export default class Local {
             resolve(collection)
         })
     }
-    get(id, collectionName) {
+    get(collectionName , id) {
         return new Promise((resolve, reject)=> { 
             const collection = this.data[collectionName]
             if (!collection) {
@@ -28,7 +28,7 @@ export default class Local {
         })
     }
 
-    create(data, collectionName) {
+    create(collectionName, data) {
         return new Promise((resolve, reject)=> { 
             const collection = this.data[collectionName]
             if (!collection) {
@@ -58,7 +58,7 @@ export default class Local {
         })
     }
 
-    delete(id, collectionName) {
+    delete(collectionName, id) {
         return new Promise(async (resolve, reject)=> { 
             const collection = this.data[collectionName]
             if (!collection) {

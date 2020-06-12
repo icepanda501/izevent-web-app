@@ -1,12 +1,21 @@
 import firebase from 'firebase'
+const {
+    FIREBASE_API_KEY,
+    FIREBASE_AUTH_DOMAIN,
+    FIREBASE_DATABASE_URL,
+    FIREBASE_PROJECT_ID,
+    FIREBASE_MESSAGING_SENDER_ID,
+    FIREBASE_APP_Id,
+} = process.env
+
 
 const firebaseConfig = {
-    apiKey: "AIzaSyByZAfxLTJ2EKz5C8jabDvMBfyZY-0mT8o",
-    authDomain: "bidodos-43e72.firebaseapp.com",
-    databaseURL: "https://izevent.firebaseio.com/",
-    projectId: "izevent",
-    messagingSenderId: "704947940015",
-    appId: "1:704947940015:web:c288509025982e2141425a"
+    apiKey: FIREBASE_API_KEY,
+    authDomain: FIREBASE_AUTH_DOMAIN,
+    databaseURL: FIREBASE_DATABASE_URL,
+    projectId: FIREBASE_PROJECT_ID,
+    messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+    appId: FIREBASE_APP_Id
 }
 
 firebase.initializeApp(firebaseConfig);
