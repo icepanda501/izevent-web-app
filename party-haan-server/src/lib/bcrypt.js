@@ -1,21 +1,23 @@
 import bcrypt from 'bcryptjs';
 
-const {
+let {
     SALT_WORK_FACTOR = 10,
   } = process.env;
+
+  SALT_WORK_FACTOR = parseInt(SALT_WORK_FACTOR)
   
 const bcryptPassword = password => new Promise((resolve, reject) => {
-bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
-    if (err) reject(err);
-    // hash the password using our new salt
-    bcrypt.hash(password, salt, (errHash, hash) => {
-    if (errHash) {
-        reject(errHash);
-    }
-    // override the cleartext password with the hashed one
-    resolve(hash);
-    });
-});
+  bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+      if (err) reject(err);
+      // hash the password using our new salt
+      bcrypt.hash(password, salt, (errHash, hash) => {
+      if (errHash) {
+          reject(errHash);
+      }
+      // override the cleartext password with the hashed one
+        resolve(hash);
+      });
+  });
 });
 
 const comparePassword = async (candidatePassword, password) => {

@@ -13,10 +13,10 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
+        <PartyListPage path="/" />
         <CreateUserPage path="/createUser" />
         <CreatePartyPage path="/createParty" />
         <LoginPage path="/login" />
-        <PartyListPage path="/" />
       </Router>
     </Provider>
   );

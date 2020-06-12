@@ -1,6 +1,6 @@
 import { passport } from '../lib/passport'
 
-const whiteList = ['/party/list']
+const whiteList = ['/user', '/login']
 
 export default (req,res,next) => {
     if(whiteList.find((path) => req.baseUrl.includes(path))){

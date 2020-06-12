@@ -4,17 +4,39 @@
 
 .party-card-footer{
     display: flex;
+    justify-content: space-around;
 }
 
 .party-card-joiner-number{
     font-size: 8px;
 }
 
-.party-card-join-button{
-    font-size: 9px;
-    width: 100px;
+.party-card-button{
+    font-size: 9px !important;
+    text-align: center;
+    padding: 2px 2px !important;
+    width: 70px;
+    height: 20px;
 }
 
-.party-card-wrapper{ 
+.party-card-button.join{
+    background-color: #FF9966 !important;
+    color: #FFF !important;
+}
+
+.party-card-button.leave{
+    background-color: #DC143C !important;
+    color: #FFF !important;
+}
+
+.party-card-wrapper{
     padding: 10px;
 }
+
+.party-card-delete{
+    color: grey !important;
+    position: absolute;
+    text-align: end !important;
+    padding-top: 5px;
+}
+

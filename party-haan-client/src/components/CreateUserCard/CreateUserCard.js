@@ -23,7 +23,7 @@ const CreateUserCard = ({ onFinish, onFinishFailed }) => (
       <Form.Item
         label="อีเมล์"
         name="email"
-        rules={[{ type: 'email', required: true, message: 'Please input your email!' }]}
+        rules={[{ type: 'email', required: true, message: 'your email is wrong !' }]}
       >
         <Input />
       </Form.Item>
@@ -32,7 +32,7 @@ const CreateUserCard = ({ onFinish, onFinishFailed }) => (
         name="password"
         rules={[{ required: true, message: 'Please input your password!' }]}
       >
-        <Input />
+        <Input.Password />
       </Form.Item>
       <Form.Item
         name="agreement"

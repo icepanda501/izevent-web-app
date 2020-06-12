@@ -44,13 +44,13 @@ export default class Local {
         })
     }
 
-    update(id, data, collectionName) {
+    update(collectionName, id, data) {
         return new Promise(async (resolve, reject)=> { 
             const collection = this.data[collectionName]
             if (!collection) {
                 reject(new Error("collection not found"))
             }
-            const oldData = await this.get(id, collectionName)
+            const oldData = await this.get(collectionName, id)
             const newData = { ...oldData, ...data}
             let newCollection = collection.filter(item=> item.id !== id)
             newCollection = [...newCollection, newData]
@@ -65,7 +65,7 @@ export default class Local {
             if (!collection) {
                 reject(new Error("collection not found"))
             }
-            const data = await this.get(id, collectionName)
+            const data = await this.get(collectionName, id)
             const newCollection = collection.filter(item => item.id === id )
             this.data[collectionName] = newCollection
             resolve(data)

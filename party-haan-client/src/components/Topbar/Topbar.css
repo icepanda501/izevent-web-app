@@ -1,0 +1,12 @@
+.topbar-wrapper{
+    display: flex;
+    background-color: #FF9966;
+    color: #FFF;
+    padding: 5px 10px;
+}
+
+.topbar-title{
+    flex: 1;
+    text-align: center;
+    align-self: center;
+}

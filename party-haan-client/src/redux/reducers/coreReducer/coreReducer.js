@@ -24,7 +24,10 @@ const setError = (state, payload) => {
   };
 };
 
-const coreReducer = ({ reducerName, initialState, customReducer = {} }) => (state = initialState, action) => {
+const coreReducer = ({
+  reducerName,
+  initialState,
+  customReducer = {} }) => (state = initialState, action) => {
   const reducerSwitch = {
     [`${SET_LOADING}${reducerName}`]: setLoading,
     [`${SET_DATA}${reducerName}`]: setData,

@@ -11,6 +11,7 @@ export default class Firebase {
         Object.keys(query).forEach(key=> {
             const value = query[key]
             queryBuilder.where(key, '==', value)
+            console.log(key, '==', value)
         })
         return queryBuilder
     }
@@ -24,7 +25,7 @@ export default class Firebase {
         }
         let dataList = []
         snapshot.forEach((doc) => {
-          dataList = [...dataList , { id:doc.id, ...doc.data() } ]
+          dataList = [...dataList , { ...doc.data(), id:doc.id } ]
         });
         return dataList
     }
@@ -32,37 +33,35 @@ export default class Firebase {
         if(!query){
             throw new Error('query parameter is required')
         }
-        let snapshot;
-        snapshot = await this.buildQuery(collectionName, query).get()
-        const [firstSnapShot] = snapshot
-        if(firstSnapShot){
-            return firstSnapShot.data()
+        const dataList = await this.getAll(collectionName, query)
+        const [data] = dataList
+        if(data){
+            return data
         }else {
             return null
         }
     }
-    async get(id, collectionName) {
-        let doc = await this.db.collection(collectionName).doc(id)
-        if(doc.exists){
-            return doc.data()
-        }else {
-            return null
+    async get(collectionName, id) {
+        const doc = await this.db.collection(collectionName).doc(id).get()
+        if(doc.exists) {
+            return { ...doc.data(), id: doc.id }
         }
+        return null
     }
-    async create(data, collectionName) {
-        const result = await this.db.collection(collectionName).add(data)
-        console.log('result', result)
-        return data
+    async create(collectionName, data) {
+        const docRef = await this.db.collection(collectionName).add(data)
+        const doc = await docRef.get()
+        return { ...doc.data(), id: doc.id}
     }
-    async update(id, data, collectionName) {
-            const oldData = await this.get(id, collectionName)
+    async update(collectionName, id, data) {
+            const oldData = await this.get(collectionName, id)
             const newData = { ...oldData, ...data}
-            await db.collection(collectionName).doc(id).update(newData)
+            await this.db.collection(collectionName).doc(id).update(newData)
             return newData
     }
 
-    async delete(id, collectionName) {
-            const data = await this.get(id, collectionName)
+    async delete(collectionName, id) {
+            const data = await this.get(collectionName, id)
             await this.db.collection(collectionName).doc(id).delete()
             return data
     }

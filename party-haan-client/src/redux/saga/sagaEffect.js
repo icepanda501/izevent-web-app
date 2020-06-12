@@ -18,6 +18,7 @@ import { selectUser } from '../selects';
 import {
   getPartyListHandler,
   createUserHandler,
+  loginHandler,
 } from '../../api/apiHandler';
 
 const getPartyList = function* (action) {
@@ -31,7 +32,7 @@ const getPartyList = function* (action) {
   } catch (error) {
     yield put({
       type: `${SET_ERROR}${PARTY_LIST}`,
-      payload: { data: result.data.data, error },
+      payload: { data: [], error: error.message },
     });
   }
   if (result) {
@@ -50,7 +51,7 @@ const createUser = function* (action) {
   } catch (error) {
     yield put({
       type: `${SET_ERROR}${USER}`,
-      payload: { data: result.data.data, error },
+      payload: { data: null, error: error.message },
     });
   }
   if (result) {
@@ -61,11 +62,40 @@ const createUser = function* (action) {
   }
 };
 
+const loginUser = function* (action) {
+  yield put({ type: `${SET_LOADING}${USER}` });
+  let result;
+  try {
+    result = yield call(loginHandler, action.payload);
+    if (result) {
+      yield put({
+        type: `${SET_DATA}${USER}`,
+        payload: { data: result.data.data },
+      });
+    }
+  } catch (error) {
+    if (error.response && error.response.data) {
+      console.log(error.response);
+      yield put({
+        type: `${SET_ERROR}${USER}`,
+        payload: { data: null, error: error.response.data.message },
+      });
+    } else {
+      yield put({
+        type: `${SET_ERROR}${USER}`,
+        payload: { data: null, error: error.message },
+      });
+    }
+  }
+};
+
 export {
   createUser,
   getPartyList,
+  loginUser,
 };
 export default {
   createUser,
   getPartyList,
+  loginUser,
 };
