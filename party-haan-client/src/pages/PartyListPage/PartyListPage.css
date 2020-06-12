@@ -3,3 +3,12 @@
     right: 20px;
     bottom: 20px;
 }
+
+.party-loading{
+    position: absolute;
+    z-index: 100;
+    display: flex;
+    margin-top: 40%;
+    justify-content: center;
+    width: 100%;
+}

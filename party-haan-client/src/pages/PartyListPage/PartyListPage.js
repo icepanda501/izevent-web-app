@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { navigate } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col } from 'antd';
+import { Row, Col, Spin } from 'antd';
 import { selectPartyList, selectUser } from '../../redux/selects';
 import { loadPartyList } from '../../redux/actions';
 import PartyCard from '../../components/PartyCard';
@@ -16,7 +16,7 @@ const PartyListPage = () => {
   if (!user) {
     navigate('/login');
   }
-  const { data: partyList, loading: partyListLoading } = useSelector(selectPartyList);
+  const { data: partyList, isLoading: partyListLoading } = useSelector(selectPartyList);
 
   useEffect(() => {
     dispatch(loadPartyList());
@@ -34,6 +34,7 @@ const PartyListPage = () => {
         </Col>
       </Row>
       <Row>
+        { partyListLoading && <div className="party-loading"><Spin tip="Loading..." size="large" /></div>}
         { partyList.map(party => <PartyCard key={party.id} party={party} />) }
         <div className="create-party-button">
           <PlusButton onClick={goToCreateParty} />
